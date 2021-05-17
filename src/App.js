@@ -75,7 +75,6 @@ function App() {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
-          console.log("data is:", res.data);
           setDataJogs(res.data.response.jogs);
           setSearchResults(res.data.response.jogs);
         })
