@@ -1,0 +1,53 @@
+@import "fonts";
+@import "variables";
+@import "components/all";
+
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+.content {
+  text-align: center;
+}
+
+//filter
+
+.rectangle {
+  padding-top: 16px;
+  padding-bottom: 13px;
+  background-color: $white;
+}
+
+.date-from {
+  font-family: "SFUIText";
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+}
+
+.date-to {
+  font-family: "SFUIText";
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+}
+
+.search-jogs {
+  width: 100px;
+  height: 31px;
+  margin: 0 45px 0 15px;
+  border-radius: 11px;
+  border: solid 1px #979797;
+  background-color: $white-two;
+}
+
+//filter

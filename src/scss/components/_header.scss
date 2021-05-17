@@ -1,0 +1,28 @@
+@import "../variables";
+
+.header {
+  padding: 30px 30px 30px 37px;
+  display: flex;
+  justify-content: space-between;
+  background-color: $apple-green;
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__elem {
+      margin: 3px 25px 4.1px 25px;
+      font-family: "SFUIText";
+      font-size: 14px;
+      font-weight: bold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      text-align: center;
+      text-decoration: none;
+      color: #ffffff;
+    }
+  }
+}

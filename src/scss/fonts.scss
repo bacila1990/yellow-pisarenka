@@ -1,0 +1,18 @@
+@font-face {
+  font-family: "SFUIText";
+  src: local("./fonts/SFUIText-Regular"), local("SFUIText-Regular"),
+    url("./fonts/SFUIText-Regular.ttf") format("truetype"),
+    url("./fonts/SFUIText-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+}
+@font-face {
+  font-family: "SFUIText";
+  src: local("./fonts/SFUIText-Bold") local("SFUIText-Bold"),
+    url("./fonts/SFUIText-Bold.ttf") format("truetype"),
+    url("./fonts/SFUIText-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+}

@@ -1,0 +1,32 @@
+@import "../variables";
+
+.Rectangle-3 {
+  border-radius: 44px;
+  background: $baby-purple;
+  display: inline-block;
+  padding: 77px 171px 36px;
+  margin-top: 13%;
+}
+
+.bear-face {
+  width: 160px;
+  height: 150px;
+}
+
+.Rectangle-2 {
+  display: block;
+  width: 151px;
+  height: 60px;
+  margin: 56px 5px 0 4px;
+  border-radius: 36px;
+  border: solid 3px $white-two;
+  background: $baby-purple;
+  font-family: "SFUIText";
+  font-size: 18px;
+  color: $white-two;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+}

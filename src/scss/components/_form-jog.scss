@@ -1,0 +1,80 @@
+@import "../variables";
+
+.formJog {
+  position: fixed;
+  width: 503px;
+  height: 379px;
+  background: #ccc;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+  border-radius: 44px;
+  background-color: $apple-green;
+
+  &__cancel {
+    position: absolute;
+    right: 17px;
+    top: 17px;
+    width: 27px;
+    height: 27px;
+    margin: 0 0 50px 35px;
+    cursor: pointer;
+  }
+
+  &__cancel:hover {
+    transform: skew(-10deg);
+  }
+
+  &__block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 75px;
+
+    &__elem {
+      margin: 20px 95px;
+      font-family: "SFUIText";
+      font-size: 16px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+    }
+  }
+
+  &__submit {
+    font-family: "SFUIText";
+    padding: 14px 150.4px 13px 124.4px;
+    border-radius: 25.2px;
+    border: solid 2px $white-two;
+    margin-top: 40px;
+    background: $apple-green;
+    cursor: pointer;
+  }
+
+  &__submit:hover {
+    background: $white-two;
+  }
+}
+
+.input-form {
+  position: absolute;
+  width: 236px;
+  height: 31px;
+  right: 11%;
+  margin: -7px 35px 25px 16.2px;
+  border-radius: 7px;
+  border: solid 1px #979797;
+  background-color: $white-two;
+}
+
+.errors-input {
+  position: absolute;
+  color: red;
+  margin-top: 31px;
+  right: 154px;
+}

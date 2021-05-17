@@ -1,0 +1,48 @@
+@import "../variables";
+
+.jog {
+  display: flex;
+  justify-content: center;
+  margin-top: 53px;
+}
+
+.weight-text {
+  font-weight: bolder;
+}
+
+.parameters {
+  margin-left: 46px;
+  min-width: 130px;
+
+  &__date,
+  &__speed,
+  &__distance,
+  &__time {
+    font-family: "SFUIText";
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+  }
+
+  &__speed {
+    margin-top: 9px;
+  }
+
+  &__distance,
+  &__time {
+    margin-top: 12px;
+  }
+}
+
+.add {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+}
+
+.add:hover {
+  transform: skew(-20deg);
+}
