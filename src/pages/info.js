@@ -2,9 +2,9 @@ import React from "react";
 
 const Info = () => {
   return (
-    <>
-      <h1 className="INFO">INFO</h1>
-      <div className="Lorem-Ipsum-is-simpl">
+    <div className="info">
+      <h1 className="info__header">INFO</h1>
+      <div className="info__simpl">
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry&#96;s standard dummy text
         ever since the 1500s, when an unknown printer took a galley of type and
@@ -15,14 +15,14 @@ const Info = () => {
         with desktop publishing software like Aldus PageMaker including versions
         of Lorem Ipsum.
       </div>
-      <div className="It-is-a-long-establi">
+      <div className="info__establi">
         It is a long established fact that a reader will be distracted by the
         readable content of a page when looking at its layout. The point of
         using Lorem Ipsum is that it has a more-or-less normal distribution of
         letters, as opposed to using &#96;Content here, content here&#96;,
         making it look like readable English.
       </div>
-    </>
+    </div>
   );
 };
 

@@ -5,24 +5,72 @@
   display: flex;
   justify-content: space-between;
   background-color: $apple-green;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__elem {
+    margin: 3px 25px 4.1px 25px;
+    font-family: "SFUIText";
+    font-size: 14px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    text-decoration: none;
+    color: $white-two;
+  }
+}
+
+.burger {
+  display: none;
+}
+
+.filter {
+  display: none;
+}
+
+@media (max-width: 830px) {
+  .burger {
+    display: block;
+    height: 23px;
+    width: 28px;
+    margin-top: 10px;
+  }
 
   .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    &__elem {
-      margin: 3px 25px 4.1px 25px;
-      font-family: "SFUIText";
-      font-size: 14px;
-      font-weight: bold;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: normal;
-      letter-spacing: normal;
-      text-align: center;
-      text-decoration: none;
-      color: #ffffff;
-    }
+    display: none;
   }
+
+  .filter-mobile {
+    position: absolute;
+    right: 86px;
+    top: 31px;
+  }
+
+  .logo {
+    width: 98px;
+    height: 37px;
+  }
+}
+
+.open-burger {
+  background: $white-two;
+  height: 300px;
+}
+
+.container-mobile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.container__elem-mobile {
+  color: black;
+  padding: 9px 0;
 }

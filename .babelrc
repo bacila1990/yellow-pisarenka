@@ -1,6 +1,6 @@
 {
   "presets": [
-    [ 
+    [
       "@babel/env",
       {
         "targets": {
@@ -9,9 +9,6 @@
       }
     ],
 
-    [ 
-      "@babel/preset-react"
-    ]
-
+    ["@babel/preset-react"]
   ]
 }

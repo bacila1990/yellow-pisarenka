@@ -1,42 +1,47 @@
 @import "../variables";
 
-.INFO {
-  width: 89px;
-  height: 43px;
-  color: $apple-green;
-  margin: 85px 939.5px 15px 411.5px;
-  font-family: "SFUIText";
-  font-size: 36px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: center;
+.info {
+  width: 610px;
+  margin: 100px auto;
+
+  &__simpl,
+  &__establi {
+    font-family: "SFUIText";
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.71;
+    letter-spacing: normal;
+  }
+
+  &__header {
+    color: #7ed321;
+    font-family: "SFUIText";
+    font-size: 36px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    margin-bottom: 15px;
+  }
+
+  &__simpl {
+    padding-bottom: 55px;
+  }
 }
 
-.Lorem-Ipsum-is-simpl {
-  width: 614px;
-  height: 191px;
-  margin: 15px 411px 30px 415px;
-  font-family: "SFUIText";
-  font-size: 14px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.71;
-  letter-spacing: normal;
+@media (max-width: 650px) {
+  .info {
+    margin-top: 70px;
+    width: 450px;
+  }
 }
 
-.It-is-a-long-establi {
-  width: 614px;
-  height: 191px;
-  margin: 30px 411px 0 415px;
-  font-family: "SFUIText";
-  font-size: 14px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.71;
-  letter-spacing: normal;
+@media (max-width: 480px) {
+  .info {
+    margin-top: 50px;
+    width: 310px;
+  }
 }

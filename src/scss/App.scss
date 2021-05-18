@@ -14,9 +14,11 @@ body {
 //filter
 
 .rectangle {
+  display: flex;
   padding-top: 16px;
   padding-bottom: 13px;
-  background-color: $white;
+  background-color: #eaeaea;
+  justify-content: center;
 }
 
 .date-from {
@@ -48,6 +50,13 @@ body {
   border-radius: 11px;
   border: solid 1px #979797;
   background-color: $white-two;
+}
+
+@media (max-width: 830px) {
+  .search-jogs {
+    width: 80px;
+    margin: 0px 12px;
+  }
 }
 
 //filter
