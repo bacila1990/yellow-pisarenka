@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import axios from "axios";
 
-const FormJog = ({ isFormJog, token }) => {
+const FormJog = ({ isFormJog, token, jogId, userId }) => {
   const {
     register,
     handleSubmit,
@@ -12,22 +12,37 @@ const FormJog = ({ isFormJog, token }) => {
   } = useForm();
 
   const onSubmit = ({ distance, time, date }) => {
-    console.log("distance, time, date:", distance, time, date);
     const urlData = "https://jogtracker.herokuapp.com/api/v1/data/jog";
 
-    axios({
-      method: "post",
-      url: urlData,
-      data: `date=${date}&time=${time}&distance=${distance}`,
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => {
-        console.log("res:", res);
+    if (!jogId) {
+      axios({
+        method: "post",
+        url: urlData,
+        data: `date=${date}&time=${time}&distance=${distance}`,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .catch((error) => console.log(error));
+        .then((res) => {
+          console.log("res:", res);
+        })
+        .catch((error) => console.log(error));
+    } else {
+      axios({
+        method: "put",
+        url: urlData,
+        data: `date=${date}&time=${time}&distance=${distance}&jog_id=${jogId}&user_id=${userId}`,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          console.log("res:", res);
+        })
+        .catch((error) => console.log(error));
+    }
   };
 
   return (
@@ -91,6 +106,8 @@ const FormJog = ({ isFormJog, token }) => {
 FormJog.propTypes = {
   isFormJog: PropTypes.func.isRequired,
   token: PropTypes.string,
+  userId: PropTypes.string,
+  jogId: PropTypes.string,
 };
 
 export default FormJog;

@@ -59,6 +59,7 @@ const filterDate = (data, date, sign) => {
 function App() {
   const [token, setToken] = useLocalStorage("Token");
   const [dataJogs, setDataJogs] = useState([]);
+  const [userId, setUserId] = useState("");
   const [filterFrom, setFilterFrom] = useState("");
   const [filterTo, setFilterTo] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -77,6 +78,7 @@ function App() {
         .then((res) => {
           setDataJogs(res.data.response.jogs);
           setSearchResults(res.data.response.jogs);
+          setUserId(res.data.response.users[0].id);
         })
         .catch((error) => console.log(error));
     }
@@ -144,7 +146,7 @@ function App() {
 
   return (
     <div className="wrapper">
-      <Header isFelter={isFelter} />
+      <Header isFelter={isFelter} filterBlock={filterBlock} />
       <div className="content">
         {filterBlock && (
           <div className="rectangle">
@@ -196,7 +198,9 @@ function App() {
       <Route
         path="/JOGS"
         exact
-        render={() => <Jogs dataJogs={searchResults} token={token} />}
+        render={() => (
+          <Jogs dataJogs={searchResults} token={token} userId={userId} />
+        )}
       />
       <Route path="/INFO" exact component={Info} />
       <Route path="/CONTACT-US" exact component={ContactUs} />

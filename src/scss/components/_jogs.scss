@@ -1,9 +1,17 @@
 @import "../variables";
 
+.jogs {
+  pointer-events: none;
+}
+
 .jog {
   display: flex;
   justify-content: center;
-  margin-top: 53px;
+  padding: 50px 0;
+}
+
+.jog:hover {
+  outline: 2px solid #979797;
 }
 
 .weight-text {
@@ -45,4 +53,10 @@
 
 .add:hover {
   transform: skew(-20deg);
+}
+
+@media (max-width: 830px) {
+  .jog {
+    outline: 2px solid $white;
+  }
 }
