@@ -67,22 +67,23 @@ function App() {
   const [filterOne, setFilterOne] = useState(false);
   const [filterTwo, setFilterTwo] = useState(false);
 
-  useEffect(() => {
+  const getDataJogs = async () => {
     const urlData = "https://jogtracker.herokuapp.com/api/v1/data/sync";
+    await axios
+      .get(urlData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        setDataJogs(res.data.response.jogs);
+        setSearchResults(res.data.response.jogs);
+        setUserId(res.data.response.users[0].id);
+      })
+      .catch((error) => console.log(error));
+  };
 
-    if (token) {
-      axios
-        .get(urlData, {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((res) => {
-          setDataJogs(res.data.response.jogs);
-          setSearchResults(res.data.response.jogs);
-          setUserId(res.data.response.users[0].id);
-        })
-        .catch((error) => console.log(error));
-    }
-  }, [token]);
+  useEffect(() => {
+    if (token) getDataJogs();
+  }, []);
 
   const getToken = () => {
     const urlToken = "https://jogtracker.herokuapp.com/api/v1/auth/uuidLogin";
@@ -199,7 +200,12 @@ function App() {
         path="/JOGS"
         exact
         render={() => (
-          <Jogs dataJogs={searchResults} token={token} userId={userId} />
+          <Jogs
+            dataJogs={searchResults}
+            token={token}
+            userId={userId}
+            getDataJogs={getDataJogs}
+          />
         )}
       />
       <Route path="/INFO" exact component={Info} />

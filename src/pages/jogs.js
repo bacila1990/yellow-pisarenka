@@ -10,7 +10,7 @@ const calculationSpeed = (distance, time) => {
   return Math.round((distance / 1000 / time) * 60 * 1000);
 };
 
-const Jogs = ({ dataJogs, token, userId }) => {
+const Jogs = ({ dataJogs, token, userId, getDataJogs }) => {
   const [formJog, setFormJog] = useState(false);
   const [jogId, setjogId] = useState("");
 
@@ -57,6 +57,8 @@ const Jogs = ({ dataJogs, token, userId }) => {
           token={token}
           userId={userId}
           jogId={jogId}
+          dataJogs={dataJogs}
+          getDataJogs={getDataJogs}
         />
       )}
       <img className="add" onClick={isFormJog} src={add} alt="add" />
@@ -66,6 +68,7 @@ const Jogs = ({ dataJogs, token, userId }) => {
 
 Jogs.propTypes = {
   dataJogs: PropTypes.array.isRequired,
+  getDataJogs: PropTypes.func.isRequired,
   token: PropTypes.string,
   userId: PropTypes.string,
 };
