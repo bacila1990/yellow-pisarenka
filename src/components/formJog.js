@@ -59,7 +59,12 @@ const FormJog = ({ isFormJog, token, jogId, userId, getDataJogs }) => {
   };
 
   return (
-    <form className="formJog" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      aria-label="form"
+      data-testid="form-jog"
+      className="formJog"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <img
         className="formJog__cancel"
         onClick={() => isFormJog()}

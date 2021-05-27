@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, BrowserRouter } from "react-router-dom";
 import "./scss/App.scss";
 import bearFace from "./assets/img/bear-face.svg";
 import axios from "axios";
 
-import { Header } from "./components";
+import { Header, Filter } from "./components";
 import { Jogs, Info, ContactUs } from "./pages";
 
 function useLocalStorage(key, initialValue) {
@@ -30,186 +30,97 @@ function useLocalStorage(key, initialValue) {
   return [storedValue, setValue];
 }
 
-const reversDate = (date) => {
-  const day = date.substring(3, 5);
-  const month = date.substring(0, 2);
-  const year = date.substring(6, 10);
-
-  return `${day}.${month}.${year}`;
-};
-
-const filterDate = (data, date, sign) => {
-  let result = null;
-
-  if (sign === ">=") {
-    result = data.filter(
-      (elem) => elem.date * 1000 >= Date.parse(reversDate(date))
-    );
-  }
-
-  if (sign === "<=") {
-    result = data.filter(
-      (elem) => elem.date * 1000 <= Date.parse(reversDate(date))
-    );
-  }
-
-  return result;
-};
-
 function App() {
   const [token, setToken] = useLocalStorage("Token");
   const [dataJogs, setDataJogs] = useState([]);
   const [userId, setUserId] = useState("");
-  const [filterFrom, setFilterFrom] = useState("");
-  const [filterTo, setFilterTo] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [filterBlock, setFilterBlock] = useState(true);
-  const [filterOne, setFilterOne] = useState(false);
-  const [filterTwo, setFilterTwo] = useState(false);
 
   const getDataJogs = async () => {
     const urlData = "https://jogtracker.herokuapp.com/api/v1/data/sync";
-    await axios
-      .get(urlData, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => {
-        setDataJogs(res.data.response.jogs);
-        setSearchResults(res.data.response.jogs);
-        setUserId(res.data.response.users[0].id);
-      })
-      .catch((error) => console.log(error));
+
+    const res = await axios.get(urlData, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = res.data.response;
+
+    setDataJogs(data.jogs);
+    setSearchResults(data.jogs);
+    setUserId(data.users[0].id);
   };
 
   useEffect(() => {
     if (token) getDataJogs();
-  }, []);
+  }, [token]);
 
-  const getToken = () => {
+  const getToken = async () => {
     const urlToken = "https://jogtracker.herokuapp.com/api/v1/auth/uuidLogin";
-    axios
-      .post(urlToken, { uuid: "hello" })
-      .then((res) => {
-        const token = res.data.response.access_token;
-        setToken(token);
-      })
-      .catch((error) => console.log(error));
-  };
+    const payload = { uuid: "hello" };
 
-  const handleChangeOne = (e) => {
-    if (event.target.name === "setFilterFrom") {
-      setFilterFrom(e.target.value);
-    }
-    if (event.target.name === "setFilterTo") {
-      setFilterTo(e.target.value);
-    }
+    const res = await axios.post(urlToken, payload);
+    const token = res.data.response.access_token;
 
-    if (e.target.value.length === 10) {
-      if (event.target.name === "setFilterFrom") {
-        if (filterTwo === false) {
-          setSearchResults(filterDate(dataJogs, e.target.value, ">="));
-          setFilterOne(true);
-        } else {
-          setSearchResults(filterDate(searchResults, e.target.value, ">="));
-        }
-      }
-      if (event.target.name === "setFilterTo") {
-        if (filterOne === false) {
-          setSearchResults(filterDate(dataJogs, e.target.value, "<="));
-          setFilterTwo(true);
-        } else {
-          setSearchResults(filterDate(searchResults, e.target.value, "<="));
-        }
-      }
-    } else {
-      if (event.target.name === "setFilterFrom") {
-        if (filterTwo === true) {
-          setSearchResults(filterDate(dataJogs, filterTo, "<="));
-        }
-        setFilterOne(false);
-      } else {
-        setSearchResults(dataJogs);
-      }
-      if (event.target.name === "setFilterTo") {
-        if (filterOne === true) {
-          setSearchResults(filterDate(dataJogs, filterFrom, ">="));
-        }
-        setFilterTwo(false);
-      } else {
-        setSearchResults(dataJogs);
-      }
-    }
+    setToken(token);
   };
 
   const isFelter = () => {
     setFilterBlock(!filterBlock);
   };
 
+  const isSearchResults = (data) => {
+    setSearchResults(data);
+  };
+
   return (
-    <div className="wrapper">
-      <Header isFelter={isFelter} filterBlock={filterBlock} />
-      <div className="content">
-        {filterBlock && (
-          <div className="rectangle">
-            <span className="date-from ">
-              Date from
-              <input
-                className="search-jogs "
-                type="text"
-                name="setFilterFrom"
-                placeholder="13.01.1970"
-                value={filterFrom}
-                onChange={handleChangeOne}
-              />
-            </span>
-            <span className="date-to">
-              Date to
-              <input
-                className="search-jogs "
-                type="text"
-                name="setFilterTo"
-                placeholder="18.01.1970"
-                value={filterTo}
-                onChange={handleChangeOne}
-              />
-            </span>
-          </div>
-        )}
-        <Route
-          path="/"
-          exact
-          render={() =>
-            token ? (
-              <Redirect to="/JOGS" />
-            ) : (
-              <div className="Rectangle-3">
-                <img className="bear-face" src={bearFace} alt="bear face" />
-                <button
-                  type="button"
-                  onClick={getToken}
-                  className="Rectangle-2"
-                >
-                  Let me in
-                </button>
-              </div>
-            )
-          }
-        />
-      </div>
-      <Route
-        path="/JOGS"
-        exact
-        render={() => (
-          <Jogs
-            dataJogs={searchResults}
-            token={token}
-            userId={userId}
-            getDataJogs={getDataJogs}
+    <div data-testid="app-component" className="wrapper">
+      <BrowserRouter>
+        <Header isFelter={isFelter} filterBlock={filterBlock} />
+        <div className="content">
+          {filterBlock && (
+            <Filter
+              dataJogs={dataJogs}
+              searchResults={searchResults}
+              isSearchResults={isSearchResults}
+            />
+          )}
+          <Route
+            path="/"
+            exact
+            render={() =>
+              token ? (
+                <Redirect to="/JOGS" />
+              ) : (
+                <div className="Rectangle-3">
+                  <img className="bear-face" src={bearFace} alt="bear face" />
+                  <button
+                    data-testid="button-let-me-in"
+                    type="button"
+                    onClick={getToken}
+                    className="Rectangle-2"
+                  >
+                    Let me in
+                  </button>
+                </div>
+              )
+            }
           />
-        )}
-      />
-      <Route path="/INFO" exact component={Info} />
-      <Route path="/CONTACT-US" exact component={ContactUs} />
+        </div>
+        <Route
+          path="/JOGS"
+          exact
+          render={() => (
+            <Jogs
+              dataJogs={searchResults}
+              token={token}
+              userId={userId}
+              getDataJogs={getDataJogs}
+            />
+          )}
+        />
+        <Route path="/INFO" exact component={Info} />
+        <Route path="/CONTACT-US" exact component={ContactUs} />
+      </BrowserRouter>
     </div>
   );
 }

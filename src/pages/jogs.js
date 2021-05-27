@@ -25,11 +25,17 @@ const Jogs = ({ dataJogs, token, userId, getDataJogs }) => {
   };
 
   return (
-    <>
-      <div className={formJog ? "jogs" : ""}>
+    <div>
+      <div data-testid="jogs-component" className={formJog ? "jogs" : ""}>
         {dataJogs.length &&
           dataJogs.map((item) => (
-            <div id={item.id} onClick={updateJog} key={item.id} className="jog">
+            <div
+              data-testid="jog"
+              id={item.id}
+              onClick={updateJog}
+              key={item.id}
+              className="jog"
+            >
               <img className="icon" src={icon} alt="icon" />
               <div className="parameters">
                 <div className="parameters__date">
@@ -61,16 +67,29 @@ const Jogs = ({ dataJogs, token, userId, getDataJogs }) => {
           getDataJogs={getDataJogs}
         />
       )}
-      <img className="add" onClick={isFormJog} src={add} alt="add" />
-    </>
+      <img
+        data-testid="is-form-jog"
+        className="add"
+        onClick={isFormJog}
+        src={add}
+        alt="add"
+      />
+    </div>
   );
 };
 
 Jogs.propTypes = {
   dataJogs: PropTypes.array.isRequired,
   getDataJogs: PropTypes.func.isRequired,
-  token: PropTypes.string,
-  userId: PropTypes.string,
+  token: PropTypes.string.isRequired,
+  userId: PropTypes.string.isRequired,
+};
+
+Jogs.defaultProps = {
+  dataJogs: [],
+  token: "",
+  userId: "",
+  getDataJogs: () => {},
 };
 
 export default Jogs;

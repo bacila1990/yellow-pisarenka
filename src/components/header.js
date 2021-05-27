@@ -26,7 +26,10 @@ function Header({ isFelter, filterBlock }) {
   };
 
   return (
-    <div className={burgerMenu ? "header  open-burger" : "header "}>
+    <div
+      data-testid="location-header"
+      className={burgerMenu ? "header open-burger" : "header"}
+    >
       <Link to="/">
         <img
           className="logo"
@@ -74,6 +77,7 @@ function Header({ isFelter, filterBlock }) {
         type="image"
       />
       <input
+        data-testid="header-burger-input"
         className="burger"
         onClick={isBurgerMenu}
         src={burgerMenu ? cancelBurger : burger}
@@ -85,8 +89,10 @@ function Header({ isFelter, filterBlock }) {
 }
 
 Header.propTypes = {
-  isFelter: PropTypes.func,
-  filterBlock: PropTypes.bool,
+  isFelter: PropTypes.func.isRequired,
+  filterBlock: PropTypes.bool.isRequired,
 };
+
+Header.defaultProps = { isFelter: () => {}, filterBlock: false };
 
 export default Header;

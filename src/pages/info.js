@@ -2,7 +2,7 @@ import React from "react";
 
 const Info = () => {
   return (
-    <div className="info">
+    <div data-testid="location-info" className="info">
       <h1 className="info__header">INFO</h1>
       <div className="info__simpl">
         Lorem Ipsum is simply dummy text of the printing and typesetting
