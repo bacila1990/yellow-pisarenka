@@ -41,9 +41,11 @@ const FormJog = ({ isFormJog, token, jogId, userId, getDataJogs }) => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const onSubmit = async ({ distance, time, date }) => {
+    reset();
     !jogId
       ? await requestJog(token, distance, time, date, getDataJogs, "post")
       : await requestJog(
@@ -60,12 +62,13 @@ const FormJog = ({ isFormJog, token, jogId, userId, getDataJogs }) => {
 
   return (
     <form
-      aria-label="form"
       data-testid="form-jog"
+      aria-label="form"
       className="formJog"
       onSubmit={handleSubmit(onSubmit)}
     >
       <img
+        data-testid="form-cancel"
         className="formJog__cancel"
         onClick={() => isFormJog()}
         src={cancel}
@@ -116,7 +119,12 @@ const FormJog = ({ isFormJog, token, jogId, userId, getDataJogs }) => {
           )}
         </span>
       </div>
-      <input className="formJog__submit" type="submit" value="Save" />
+      <input
+        data-testid="form-submit"
+        className="formJog__submit"
+        type="submit"
+        value="Save"
+      />
     </form>
   );
 };
@@ -128,5 +136,7 @@ FormJog.propTypes = {
   userId: PropTypes.string,
   jogId: PropTypes.string,
 };
+
+FormJog.defaultProps = { getDataJogs: () => {}, isFormJog: () => {} };
 
 export default FormJog;

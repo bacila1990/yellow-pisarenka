@@ -1,10 +1,93 @@
 import React from "react";
-import { render, screen, fireEvent, act } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  act,
+  waitFor,
+} from "@testing-library/react";
 import App from "./App";
 import { Router, BrowserRouter } from "react-router-dom";
 import { createMemoryHistory } from "history";
-import { Filter, Header } from "./components";
+import { Filter, Header, FormJog } from "./components";
 import { Info, Jogs, ContactUs } from "./pages";
+
+describe("Form Jog", () => {
+  const props = {
+    isFormJog: () => {},
+    token: "fsp[eflkp[sekfso9jewqerewr",
+    jogId: "322",
+    userId: "3",
+    getDataJogs: () => {},
+  };
+
+  beforeEach(() => {
+    render(<FormJog {...props} />);
+  });
+
+  it("should display required error when value is invalid", async () => {
+    fireEvent.submit(screen.getByTestId("form-submit"));
+
+    expect(await screen.findAllByText(/This field is required/i)).toHaveLength(
+      3
+    );
+  });
+
+  it("should display matching error when date is invalid", async () => {
+    fireEvent.input(screen.getByPlaceholderText("6"), {
+      target: {
+        value: "15",
+      },
+    });
+
+    fireEvent.input(screen.getByPlaceholderText("12"), {
+      target: {
+        value: "30",
+      },
+    });
+    fireEvent.input(screen.getByPlaceholderText("21.02.1970"), {
+      target: {
+        value: "invalid",
+      },
+    });
+
+    fireEvent.submit(screen.getByTestId("form-submit"));
+
+    expect(await screen.findAllByText(/This field is required/i)).toHaveLength(
+      1
+    );
+    expect(screen.getByPlaceholderText("6").value).toBe("15");
+    expect(screen.getByPlaceholderText("12").value).toBe("30");
+  });
+
+  it("should not display error when value is valid", async () => {
+    fireEvent.input(screen.getByPlaceholderText("6"), {
+      target: {
+        value: "15",
+      },
+    });
+
+    fireEvent.input(screen.getByPlaceholderText("12"), {
+      target: {
+        value: "30",
+      },
+    });
+    fireEvent.input(screen.getByPlaceholderText("21.02.1970"), {
+      target: {
+        value: "24.03.1970",
+      },
+    });
+
+    fireEvent.submit(screen.getByTestId("form-submit"));
+
+    await waitFor(() =>
+      expect(screen.queryAllByText(/This field is required/i)).toHaveLength(0)
+    );
+    expect(screen.getByPlaceholderText("6").value).toBe("");
+    expect(screen.getByPlaceholderText("12").value).toBe("");
+    expect(screen.getByPlaceholderText("21.02.1970").value).toBe("");
+  });
+});
 
 describe("Jogs", () => {
   const props = {

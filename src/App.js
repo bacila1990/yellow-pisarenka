@@ -91,13 +91,17 @@ function App() {
               token ? (
                 <Redirect to="/JOGS" />
               ) : (
-                <div className="Rectangle-3">
-                  <img className="bear-face" src={bearFace} alt="bear face" />
+                <div className="check-in">
+                  <img
+                    className="check-in__img"
+                    src={bearFace}
+                    alt="bear face"
+                  />
                   <button
                     data-testid="button-let-me-in"
                     type="button"
                     onClick={getToken}
-                    className="Rectangle-2"
+                    className="check-in__button"
                   >
                     Let me in
                   </button>
